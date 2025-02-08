@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NbThemeModule } from '@nebular/theme';
 
 @Component({
   selector: 'app-root',
