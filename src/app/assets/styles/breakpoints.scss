@@ -1,0 +1,40 @@
+$breakpoints: (
+  "xs": 480px,
+  "sm": 768px,
+  "md": 1024px,
+  "lg": 1280px,
+  "xl": 1440px,
+);
+
+@mixin respond-to($size, $type: max) {
+  @if map-has-key($breakpoints, $size) {
+    $value: map-get($breakpoints, $size);
+
+    @if $type == max {
+      @media (max-width: $value) {
+        @content;
+      }
+    } @else if $type == min {
+      @media (min-width: $value) {
+        @content;
+      }
+    } @else {
+      @warn "Invalid type. Use 'max' or 'min'.";
+    }
+  } @else {
+    @warn "Breakpoint #{$size} not found in map.";
+  }
+}
+
+@mixin respond-between($min, $max) {
+  $min-value: map-get($breakpoints, $min);
+  $max-value: map-get($breakpoints, $max);
+
+  @if $min-value == null or $max-value == null {
+    @error "Invalid breakpoint: #{$min} or #{$max} not found in \$breakpoints map.";
+  } @else {
+    @media (min-width: $min-value) and (max-width: $max-value) {
+      @content;
+    }
+  }
+}
