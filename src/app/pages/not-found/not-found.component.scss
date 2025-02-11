@@ -23,7 +23,7 @@
   top: -100px;
   left: -300px;
 
-  @include breakpoints.respond-between("xs", "sm") {
+  @include breakpoints.respond-to('xs', 'sm') {
     height: 356px;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -54,7 +54,7 @@
   width: 60px;
   height: 180px;
 
-  @include breakpoints.respond-between("xs", "sm") {
+  @include breakpoints.respond-to('xs', 'sm') {
     display: none;
   }
 }
@@ -65,7 +65,7 @@
   width: 40px;
   height: 80px;
   transform: rotate(55deg);
-  @include breakpoints.respond-between("xs", "sm") {
+  @include breakpoints.respond-to('xs', 'sm') {
     display: none;
   }
 }
@@ -76,7 +76,7 @@
   width: 65px;
   height: 120px;
   transform: rotate(250deg);
-  @include breakpoints.respond-between("xs", "sm") {
+  @include breakpoints.respond-to('xs', 'sm') {
     display: none;
   }
 }
@@ -145,7 +145,7 @@
   }
 
 
-  @include breakpoints.respond-between("xs", "sm") {
+  @include breakpoints.respond-to('xs', 'sm') {
     left: 16px;
     top: 60%;
     .error__title {
@@ -218,7 +218,7 @@
   top: 50%;
   transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
 
-  @include breakpoints.respond-between("xs", "sm") {
+  @include breakpoints.respond-to('xs', 'sm') {
     left: 50%;
     top: 68%;
   }
@@ -444,7 +444,7 @@
   border-bottom: 4px solid #e67e22;
 }
 
-@include breakpoints.respond-between("xs", "sm") {
+@include breakpoints.respond-to('xs', 'sm') {
   canvas {
     display: none;
   }
