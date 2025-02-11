@@ -25,6 +25,7 @@
     "@angular/ssr": "^19.1.6",
     "@nebular/eva-icons": "14.0.2",
     "@nebular/theme": "14.0.2",
+    "@tailwindcss/postcss": "^4.0.6",
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -40,6 +41,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
     "angular-eslint": "19.0.2",
+    "autoprefixer": "^10.4.20",
     "eslint": "^9.20.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "globals": "^15.14.0",
@@ -50,6 +52,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "normalize.css": "^8.0.1",
+    "postcss": "^8.5.2",
+    "tailwindcss": "^4.0.6",
     "typescript": "~5.7.2",
     "typescript-eslint": "8.18.0"
   }

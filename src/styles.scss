@@ -1,12 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
-@import "normalize.css";
 @import "app/assets/styles/breakpoints.scss";
+@import "app/assets/styles/variables.scss";
+@import "tailwindcss";
 
 html,
 body {
   height: 100%;
   width: 100%;
   margin: 0px;
-  overflow: hidden;
   box-sizing: border-box;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

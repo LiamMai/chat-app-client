@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     importProvidersFrom([
-      NbThemeModule.forRoot(),
+      NbThemeModule.forRoot({ name: 'dark' }),
     ]),
   ],
 };
