@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NbButtonModule, NbInputModule, NbLayoutModule } from '@nebular/theme';
 
 @Component({
   selector: 'app-login',
-  imports: [NbInputModule, NbButtonModule, NbLayoutModule, ],
+  imports: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers: []

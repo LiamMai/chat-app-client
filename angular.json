@@ -29,12 +29,16 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
               }
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/@nebular/theme/styles/prebuilt/default.css",
-              "node_modules/@nebular/theme/styles/prebuilt/dark.css"
+              "src/theme.less",
+              "src/styles.scss"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -114,9 +118,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/@nebular/theme/styles/prebuilt/default.css",
-              "node_modules/@nebular/theme/styles/prebuilt/dark.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
