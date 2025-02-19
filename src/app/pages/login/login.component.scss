@@ -1,18 +1,38 @@
 @use "../../assets/styles/breakpoints.scss" as breakpoints;
 
 .container {
-  display: flex;
-  margin: 0 auto;
+  background: var(--primary-background);
   .login {
-    @include breakpoints.respond-to("xl", "lg") {
-      width: 935px;
-    }
-
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 935px;
     &__img {
-      &--static {
-        width: 380px;
+      position: relative;
+      background: url("./../../assets/img/home-phones.png") center center
+        no-repeat;
+      background-size: 100%;
+      height: 547px;
+      width: 273px;
+
+      &--item {
+        background-size: 54%;
+        height: 100%;
+        width: 273px;
+        position: absolute;
+        right: -29px;
+        top: -13px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        animation: fade 2s linear;
+      }
+
+      &--item.show {
+        opacity: 1;
       }
     }
   }
 }
-
