@@ -2,6 +2,7 @@
 
 .container {
   background: var(--primary-background);
+  overflow: hidden;
   .login {
     margin: 0 auto;
     display: flex;
@@ -32,6 +33,19 @@
 
       &--item.show {
         opacity: 1;
+      }
+    }
+
+    &__form {
+      &--wrapper {
+        border: 1px solid var(--primary-border-color);
+        padding: 16px;
+      }
+
+      .footer {
+        margin-top: 8px;
+        border: 1px solid var(--primary-border-color);
+        padding: 8px;
       }
     }
   }

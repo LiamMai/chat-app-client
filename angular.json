@@ -23,6 +23,7 @@
             "polyfills": [
               "zone.js"
             ],
+            "externalDependencies":[""],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -59,7 +60,8 @@
                   "global-builtin",
                   "import"
                 ]
-              }
+              },
+              "includePaths": ["src/app/assets/styles/variables.scss"]
             }
           },
           "configurations": {
@@ -142,6 +144,7 @@
             ]
           }
         }
+
       }
     }
   },

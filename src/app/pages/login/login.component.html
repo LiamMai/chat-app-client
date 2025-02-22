@@ -3,21 +3,21 @@
     <div class="login__img">
       <div
         class="login__img--item"
-        [ngClass]="{ 'show': showImageItem === 1 }"
+        [ngClass]="{ show: showImageItem === 1 }"
         style="background-image: url('../../assets/img/home-phones-item-1.png')"
       ></div>
       <div
-        [ngClass]="{ 'show': showImageItem === 2 }"
+        [ngClass]="{ show: showImageItem === 2 }"
         class="login__img--item"
         style="background-image: url('../../assets/img/home-phones-item-2.png')"
       ></div>
       <div
-        [ngClass]="{ 'show': showImageItem === 3 }"
+        [ngClass]="{ show: showImageItem === 3 }"
         class="login__img--item"
         style="background-image: url('../../assets/img/home-phones-item-3.png')"
       ></div>
       <div
-        [ngClass]="{ 'show': showImageItem === 4 }"
+        [ngClass]="{ show: showImageItem === 4 }"
         class="login__img--item"
         style="background-image: url('../../assets/img/home-phones-item-4.png')"
       ></div>
@@ -25,10 +25,60 @@
     </div>
 
     <div class="login__form">
-      <input nz-input placeholder="small size" nzSize="small" />
-      <br />
+      <div class="login__form--wrapper">
+        <h2 class="flex justify-center text-center">
+          Welcome To The Chat App Design By Liam Mai
+        </h2>
 
-      <input nz-input placeholder="small size" nzSize="small" />
+        <nz-input-group [nzSuffix]="suffixTemplateInfo" nzSize="small">
+          <input type="email" nz-input placeholder="Enter your email" />
+        </nz-input-group>
+
+        <div class="mb-[6px]"></div>
+
+        <nz-input-group [nzSuffix]="suffixTemplate" nzSize="small">
+          <input
+            [type]="passwordVisible ? 'text' : 'password'"
+            nz-input
+            placeholder="Password"
+            [(ngModel)]="password"
+            [nzSize]="'small'"
+          />
+        </nz-input-group>
+
+        <div class="mt-[12px]">
+          <button nz-button nzType="primary" class="w-full" nzSize="small">
+            Login
+          </button>
+        </div>
+
+        <nz-divider nzPlain  nzVariant="solid"></nz-divider>
+
+        <div class="flex justify-center">
+          <a nz-button nzSize="small" nzType="link">
+            <span class="text-center primary-color">Forgot Password?</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer flex items-center justify-center">
+        <span class="text-center">You don't have an account? </span>
+        <a nz-button nzSize="small" nzType="link">
+          <span class="text-center">&nbsp;Sign Up</span>
+        </a>
+      </div>
     </div>
   </div>
 </div>
+
+<ng-template #suffixTemplateInfo>
+  <nz-icon nz-tooltip nzTooltipTitle="Extra information" nzType="info-circle" />
+</ng-template>
+<ng-template #suffixTemplate>
+  <span
+    nz-icon
+    class="ant-input-password-icon"
+    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+    (click)="passwordVisible = !passwordVisible"
+  ></span>
+</ng-template>
