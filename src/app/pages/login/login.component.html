@@ -24,50 +24,59 @@
       <!-- <img nz-image nzSrc="/assets/img/home-phones-item-1.png" alt=""   /> -->
     </div>
 
-    <div class="login__form">
-      <div class="login__form--wrapper">
-        <h2 class="flex justify-center text-center">
-          Welcome To The Chat App Design By Liam Mai
-        </h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="login__form">
+        <div class="login__form--wrapper">
+          <h2 class="flex justify-center text-center">
+            Welcome To The Chat App Design By Liam Mai
+          </h2>
 
-        <nz-input-group [nzSuffix]="suffixTemplateInfo" nzSize="small">
-          <input type="email" nz-input placeholder="Enter your email" />
-        </nz-input-group>
+          <nz-input-group [nzSuffix]="suffixTemplateInfo" nzSize="small">
+            <input
+              type="email"
+              nz-input
+              placeholder="Enter your email"
+              formControlName="email"
+            />
+          </nz-input-group>
+          <span class="error-message">{{ getFormErrorMessage("email") }}</span>
 
-        <div class="mb-[6px]"></div>
+          <div class="mb-[6px]"></div>
 
-        <nz-input-group [nzSuffix]="suffixTemplate" nzSize="small">
-          <input
-            [type]="passwordVisible ? 'text' : 'password'"
-            nz-input
-            placeholder="Password"
-            [(ngModel)]="password"
-            [nzSize]="'small'"
-          />
-        </nz-input-group>
+          <nz-input-group [nzSuffix]="suffixTemplate" nzSize="small">
+            <input
+              [type]="passwordVisible ? 'text' : 'password'"
+              nz-input
+              placeholder="Password"
+              [nzSize]="'small'"
+              formControlName="password"
+            />
+          </nz-input-group>
+          <span class="error-message">{{ getFormErrorMessage("password") }}</span>
 
-        <div class="mt-[12px]">
-          <button nz-button nzType="primary" class="w-full" nzSize="small">
-            Login
-          </button>
+          <div class="mt-[12px]">
+            <button nz-button nzType="primary" class="w-full" nzSize="small" type="submit"  [nzLoading]="isLoading$ | async">
+              Login
+            </button>
+          </div>
+
+          <nz-divider nzPlain nzVariant="solid"></nz-divider>
+
+          <div class="flex justify-center">
+            <a nz-button nzSize="small" nzType="link">
+              <span class="text-center primary-color">Forgot Password?</span>
+            </a>
+          </div>
         </div>
 
-        <nz-divider nzPlain  nzVariant="solid"></nz-divider>
-
-        <div class="flex justify-center">
+        <div class="footer flex items-center justify-center">
+          <span class="text-center">You don't have an account? </span>
           <a nz-button nzSize="small" nzType="link">
-            <span class="text-center primary-color">Forgot Password?</span>
+            <span class="text-center">&nbsp;Sign Up</span>
           </a>
         </div>
       </div>
-
-      <div class="footer flex items-center justify-center">
-        <span class="text-center">You don't have an account? </span>
-        <a nz-button nzSize="small" nzType="link">
-          <span class="text-center">&nbsp;Sign Up</span>
-        </a>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 

@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { FormsModule } from '@angular/forms';
+import { Form, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { loginByEmail, validationMessages } from './login.model';
+import { HelperService } from '../../core/services/helper.service';
+import { AuthService } from '../../core/services/auth/auth.service';
+import { ApiStatusService } from '../../core/services/api-status.service';
+import { ToastService } from '../../core/services/toast.service';
 
 const importsModule = [
   CommonModule,
@@ -15,22 +20,36 @@ const importsModule = [
   NzIconModule,
   FormsModule,
   NzButtonModule,
-  NzDividerModule
+  NzDividerModule,
+  ReactiveFormsModule
 ]
+
+
 
 @Component({
   selector: 'app-login',
   imports: importsModule,
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  providers: []
+  providers: [],
+  standalone: true
 })
-export class LoginComponent implements OnInit {
-  constructor() {}
+export class LoginComponent implements OnInit, OnDestroy {
+
+  constructor(
+    private helperService: HelperService,
+    private authService: AuthService,
+    private apiStatus: ApiStatusService,
+    private toastService: ToastService
+  ) {}
+  
+  isLoading$ = this.apiStatus.isLoading$;
 
   showImageItem: number = 1;
   passwordVisible = false;
   password: string = "";
+
+  form: FormGroup = loginByEmail()
 
   private subscriptions: Subscription[] = [];
 
@@ -47,6 +66,35 @@ export class LoginComponent implements OnInit {
     })
 
     this.subscriptions.push(sub)
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe())
+  }
+
+  getFormErrorMessage(controlName: string) {
+    return this.helperService.getFormErrorMessage({ form: this.form, controlName, validationMessages: validationMessages })
+  }
+
+  onSubmit() {
+    const email = this.form.get("email")?.value;
+    const password = this.form.get("password")?.value;
+    
+    const body: BodySignIn = {
+      email, 
+      password
+    }
+
+    const sub = this.authService.signIn(body).subscribe({
+      next: res => {
+      },
+      error: error => {
+        this.toastService.createToast({ type: 'error', message: error.message })
+      }
+    })
+
+    this.subscriptions.push(sub);
+
   }
 
 

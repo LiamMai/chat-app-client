@@ -53,8 +53,16 @@ h6 {
   font-size: inherit;
 }
 
+.ant-btn-sm {
+  font-size: 12px;
+}
+
 .primary-color {
   color: var(--primary-text);
+}
 
+.error-message {
+  font-size: 10px;
+  color: red;
 }
 
