@@ -13,6 +13,8 @@ import { ToastService } from '../../core/services/toast.service';
 import { interval, Subscription } from 'rxjs';
 import { signUpForm, validationMessages } from './sign-up.model';
 import { FormService } from '../../core/services/form.service';
+import { Router } from '@angular/router';
+import ROUTES from '../../constants/routes';
 
 const importsModule = [
   CommonModule,
@@ -36,7 +38,8 @@ export class SignUpComponent {
     private formService: FormService,
     private authService: AuthService,
     private apiStatus: ApiStatusService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) {}
 
    isLoading$ = this.apiStatus.isLoading$;
@@ -92,5 +95,9 @@ export class SignUpComponent {
       this.subscriptions.push(sub);
   
     }
+
+  handleNavigateToSignUp() {
+    this.router.navigateByUrl(ROUTES.LOGIN);
+  }
   
 }

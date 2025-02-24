@@ -23,6 +23,8 @@
     "@angular/platform-server": "^19.1.0",
     "@angular/router": "^19.1.0",
     "@angular/ssr": "^19.1.6",
+    "@ant-design/icons": "^5.6.1",
+    "@ant-design/icons-angular": "19.0.0",
     "@tailwindcss/postcss": "^4.0.6",
     "express": "^4.18.2",
     "ng-zorro-antd": "19.0.2",

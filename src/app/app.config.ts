@@ -19,8 +19,10 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, with
 import {ReactiveFormsModule} from '@angular/forms';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { BaseInterceptor } from './core/interceptors/base.interceptor';
+import { provideAntIcons } from '@ant-design/icons-angular';
 
 registerLocaleData(en);
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,10 +30,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideNzI18n(en_US), 
-    importProvidersFrom(FormsModule), 
+    importProvidersFrom([ReactiveFormsModule, FormsModule]), 
     provideAnimationsAsync(), 
     provideHttpClient(withFetch(), withInterceptors([authInterceptor]), withInterceptorsFromDi()),
+    provideAntIcons([]),
     {provide: HTTP_INTERCEPTORS, useClass: BaseInterceptor, multi: true},
-    importProvidersFrom(ReactiveFormsModule)
   ],
 };

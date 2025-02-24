@@ -55,7 +55,7 @@
           <span class="error-message">{{ getFormErrorMessage("password") }}</span>
 
           <div class="mt-[12px]">
-            <button nz-button nzType="primary" class="w-full" nzSize="small" type="submit"  [nzLoading]="isLoading$ | async">
+            <button nz-button nzType="primary" class="w-full" nzSize="small" type="submit"  [nzLoading]="isLoading$ | async" [disabled]="form.invalid">
               Login
             </button>
           </div>

@@ -1,0 +1,12 @@
+<div class="home">
+ <nz-tabset>
+      @for (tab of tabs; track tab) {
+        <nz-tab [nzTitle]="titleTemplate">
+          <ng-template #titleTemplate>
+            <nz-icon [nzType]="tab.icon" />
+          </ng-template>
+        </nz-tab>
+      }
+    </nz-tabset>
+
+</div>
