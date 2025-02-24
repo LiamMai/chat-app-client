@@ -53,26 +53,33 @@
             />
           </nz-input-group>
           <span class="error-message">{{ getFormErrorMessage("password") }}</span>
+          <div class="mb-[6px]"></div>
+
+          
+          <nz-input-group [nzSuffix]="suffixTemplate" nzSize="small">
+            <input
+              [type]="confirmPasswordVisible ? 'text' : 'password'"
+              nz-input
+              placeholder="Confirm Password"
+              [nzSize]="'small'"
+              formControlName="confirmPassword"
+            />
+          </nz-input-group>
+          <span class="error-message">{{ getFormErrorMessage("confirmPassword") }}</span>
 
           <div class="mt-[12px]">
-            <button nz-button nzType="primary" class="w-full" nzSize="small" type="submit"  [nzLoading]="isLoading$ | async">
-              Login
+            <button nz-button nzType="primary" class="w-full" nzSize="small" type="submit"  [nzLoading]="isLoading$ | async" [disabled]="form.invalid">
+              Sign Up
             </button>
           </div>
 
           <nz-divider nzPlain nzVariant="solid"></nz-divider>
-
-          <div class="flex justify-center">
-            <a nz-button nzSize="small" nzType="link">
-              <span class="text-center primary-color">Forgot Password?</span>
-            </a>
-          </div>
         </div>
 
         <div class="footer flex items-center justify-center">
-          <span class="text-center">You don't have an account? </span>
-          <a nz-button nzSize="small" nzType="link" (click)="handleNavigateToSignUp()">
-            <span class="text-center">&nbsp;Sign Up</span>
+          <span class="text-center">Already have an account? </span>
+          <a nz-button nzSize="small" nzType="link">
+            <span class="text-center">&nbsp;Sign In</span>
           </a>
         </div>
       </div>

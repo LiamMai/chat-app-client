@@ -1,4 +1,4 @@
-declare interface BodySignIn {
+declare interface BodySignInAndSignUp {
     email: string,
     password: string,
 }

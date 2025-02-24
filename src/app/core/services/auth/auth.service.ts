@@ -15,10 +15,25 @@ export class AuthService {
     private apiStatusService: ApiStatusService
   ) { }
 
-  signIn(body: BodySignIn): Observable<AuthResponse> {
+  signIn(body: BodySignInAndSignUp): Observable<AuthResponse> {
     
     return this.apiStatusService.track(
     this.http.post<AuthResponse>(API_URL.AUTH.SIGN_IN, body).pipe(
+      map((res) => {
+        const { accessToken, refreshToken } = res;
+        localStorage.setItem(LOCAL_STORE_KEY.ACCESS_TOKEN, accessToken);
+        localStorage.setItem(LOCAL_STORE_KEY.REFRESH_TOKEN, refreshToken);
+        return res;
+      }),
+      catchError((error: ApiError) => {
+        throw error;
+      }) 
+    ))
+  }
+
+    signUp(body: BodySignInAndSignUp): Observable<AuthResponse> {
+    return this.apiStatusService.track(
+    this.http.post<AuthResponse>(API_URL.AUTH.SIGN_UP, body).pipe(
       map((res) => {
         const { accessToken, refreshToken } = res;
         localStorage.setItem(LOCAL_STORE_KEY.ACCESS_TOKEN, accessToken);

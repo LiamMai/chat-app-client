@@ -12,6 +12,9 @@ import { HelperService } from '../../core/services/helper.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { ApiStatusService } from '../../core/services/api-status.service';
 import { ToastService } from '../../core/services/toast.service';
+import { FormService } from '../../core/services/form.service';
+import { Route, Router } from '@angular/router';
+import ROUTES from '../../constants/routes';
 
 const importsModule = [
   CommonModule,
@@ -24,8 +27,6 @@ const importsModule = [
   ReactiveFormsModule
 ]
 
-
-
 @Component({
   selector: 'app-login',
   imports: importsModule,
@@ -37,10 +38,11 @@ const importsModule = [
 export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
-    private helperService: HelperService,
+    private formService: FormService,
     private authService: AuthService,
     private apiStatus: ApiStatusService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) {}
   
   isLoading$ = this.apiStatus.isLoading$;
@@ -73,14 +75,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   getFormErrorMessage(controlName: string) {
-    return this.helperService.getFormErrorMessage({ form: this.form, controlName, validationMessages: validationMessages })
+    return this.formService.getFormErrorMessage({ form: this.form, controlName, validationMessages: validationMessages })
   }
 
   onSubmit() {
     const email = this.form.get("email")?.value;
     const password = this.form.get("password")?.value;
     
-    const body: BodySignIn = {
+    const body: BodySignInAndSignUp = {
       email, 
       password
     }
@@ -97,5 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   }
 
-
+  handleNavigateToSignUp() {
+    this.router.navigateByUrl(ROUTES.SIGN_UP);
+  }
 }
