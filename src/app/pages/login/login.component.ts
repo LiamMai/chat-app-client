@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     const sub = this.authService.signIn(body).subscribe({
       next: res => {
+        this.router.navigateByUrl(ROUTES.HOME.MESSAGE)
       },
       error: error => {
         this.toastService.createToast({ type: 'error', message: error.message })

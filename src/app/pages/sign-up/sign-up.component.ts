@@ -86,6 +86,7 @@ export class SignUpComponent {
   
       const sub = this.authService.signUp(body).subscribe({
         next: res => {
+          this.router.navigateByUrl(ROUTES.HOME.MESSAGE)
         },
         error: error => {
           this.toastService.createToast({ type: 'error', message: error.message })

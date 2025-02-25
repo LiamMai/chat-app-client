@@ -1,12 +1,15 @@
 <div class="home">
- <nz-tabset>
-      @for (tab of tabs; track tab) {
-        <nz-tab [nzTitle]="titleTemplate">
+ <nz-tabset nzTabPosition="left" [nzSelectedIndex]="selectedIndexTab" (nzSelectedIndexChange)="handleSelectIndexTab($event)">
+      @for (tab of tabs; track selectedIndexTab) {
+        <nz-tab [nzTitle]="titleTemplate" (nzSelect)="handleSelectTab(tab.route)" >
           <ng-template #titleTemplate>
-            <nz-icon [nzType]="tab.icon" />
+            <nz-icon [nzType]="tab.icon" [nzTheme]="selectedIndexTab === tab.index ? 'fill' : 'outline'" />
           </ng-template>
+          <router-outlet></router-outlet>
         </nz-tab>
       }
-    </nz-tabset>
-
+  </nz-tabset>
 </div>
+
+
+

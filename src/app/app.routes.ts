@@ -5,10 +5,26 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { FriendsComponent } from './pages/home/components/friends/friends.component';
+import { MessageComponent } from './pages/home/components/message/message.component';
 export const routes: Routes = [
-  { path: '', redirectTo: ROUTES.HOME, pathMatch: 'full' },
+  { path: '', redirectTo: ROUTES.HOME.INDEX, pathMatch: 'full' },
   { path: ROUTES.LOGIN, component: LoginComponent, pathMatch: 'full' },
   { path: ROUTES.SIGN_UP, component: SignUpComponent, pathMatch: 'full' },
-  { path: ROUTES.HOME, component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { 
+    path: ROUTES.HOME.INDEX, 
+    component: HomeComponent, 
+    canActivate: [AuthGuard], 
+    children: [
+    {
+      path: ROUTES.HOME.FRIEND,
+      component: FriendsComponent
+    },
+     {
+      path: ROUTES.HOME.MESSAGE,
+      component: MessageComponent
+    },
+  ] 
+},
   { path: '**', component: NotFoundComponent },
 ];
