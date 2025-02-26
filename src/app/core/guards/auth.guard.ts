@@ -8,7 +8,7 @@ import ROUTES from '../../constants/routes';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor( private router: Router) {}
+  constructor(private router: Router) { }
 
   canActivate(): boolean {
     return this.checkAuth();
@@ -24,9 +24,10 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   private checkAuth(): boolean {
     const accessToken = localStorage.getItem(LOCAL_STORE_KEY.ACCESS_TOKEN)
+    console.log("🚀 ~ AuthGuard ~ checkAuth ~ accessToken:", accessToken)
 
     if (!accessToken) {
-    this.router.navigateByUrl(ROUTES.LOGIN);
+      this.router.navigateByUrl(ROUTES.LOGIN);
       return false
     }
 

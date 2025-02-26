@@ -1,0 +1,22 @@
+<div class="suggest-friend w-full h-full ">
+
+    <div class="suggest-friend__header">
+
+        <nz-icon nzType="user-add" nzTheme="outline" />
+        <p class="ml-[8px]">Suggest Friend</p>
+    </div>
+
+    <div nz-row [nzGutter]="[16, 16]">
+        @for (item of potentialFriend; track $index) {
+        <div nz-col [nzSpan]="4">
+            <div class="suggest-friend__item flex flex-col items-center ">
+                <nz-avatar nzSize="large" nzIcon="user" [nzSrc]="item.avatar ? item.avatar : ''"
+                    class="mb-[8px]"></nz-avatar>
+                <p class="truncate w-full">{{ item.email }}</p>
+                <button nz-button nzType="primary" nzSize="small" class="mt-[8px]">Add Friend</button>
+            </div>
+        </div>
+        }
+
+    </div>
+</div>

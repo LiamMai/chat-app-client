@@ -5,7 +5,9 @@ const ROUTES = {
     HOME: {
         INDEX: 'home',
         FRIEND: 'friends',
-        MESSAGE: 'message'
+        MESSAGE: 'message',
+        FRIEND_REQUEST: 'friend-request',
+        SUGGEST_FRIEND: 'suggest-friend'
     },
     NOT_FOUND: '404'
 }

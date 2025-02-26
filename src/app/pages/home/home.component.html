@@ -1,15 +1,27 @@
-<div class="home">
- <nz-tabset nzTabPosition="left" [nzSelectedIndex]="selectedIndexTab" (nzSelectedIndexChange)="handleSelectIndexTab($event)">
-      @for (tab of tabs; track selectedIndexTab) {
-        <nz-tab [nzTitle]="titleTemplate" (nzSelect)="handleSelectTab(tab.route)" >
-          <ng-template #titleTemplate>
-            <nz-icon [nzType]="tab.icon" [nzTheme]="selectedIndexTab === tab.index ? 'fill' : 'outline'" />
-          </ng-template>
-          <router-outlet></router-outlet>
-        </nz-tab>
-      }
-  </nz-tabset>
+<div class="home flex">
+  <ul nz-menu nzMode="inline" nzTheme="dark" class="home__menu">
+    <li nz-menu-item nz-tooltip nzTooltipPlacement="right" nzSelected class="home__menu--item">
+      <nz-icon nzType="mail" />
+      <a [routerLink]="['/home', 'message']" class="ml-[10px]">Messsage</a>
+    </li>
+    <li nz-submenu nzTitle="Friends" nzIcon="appstore" class="home__menu--item">
+      <ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/home', 'friend-request']">Friend Request</a>
+        </li>
+        <li nz-menu-item>
+          <a [routerLink]="['/home', 'friends']">List Friend</a>
+        </li>
+
+        <li nz-menu-item>
+          <a [routerLink]="['/home', 'suggest-friend']">Suggest Friend</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="w-full h-full p-[30px]">
+    <router-outlet></router-outlet>
+  </div>
+
 </div>
-
-
-

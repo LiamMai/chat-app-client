@@ -16,8 +16,8 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
-import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptorS } from './core/interceptors/auth.interceptor';
 import { BaseInterceptor } from './core/interceptors/base.interceptor';
 import { provideAntIcons } from '@ant-design/icons-angular';
 
@@ -29,11 +29,12 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideNzI18n(en_US), 
-    importProvidersFrom([ReactiveFormsModule, FormsModule]), 
-    provideAnimationsAsync(), 
-    provideHttpClient(withFetch(), withInterceptors([authInterceptor]), withInterceptorsFromDi()),
+    provideNzI18n(en_US),
+    importProvidersFrom([ReactiveFormsModule, FormsModule]),
+    provideAnimationsAsync(),
+    provideHttpClient(withFetch(), withInterceptors([]), withInterceptorsFromDi()),
     provideAntIcons([]),
-    {provide: HTTP_INTERCEPTORS, useClass: BaseInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: BaseInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorS, multi: true },
   ],
 };
