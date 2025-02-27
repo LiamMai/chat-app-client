@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, CanDeactivate, CanLoad, Router } from '@angular/router';
 import { LOCAL_STORE_KEY } from '../../shared/constants';
-import ROUTES from '../../constants/routes';
+import ROUTES from '../../shared/constants/routes';
 
 
 @Injectable({

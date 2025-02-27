@@ -1,26 +1,14 @@
 <div class="container w-full h-full max-w-[100%]">
   <div class="login">
     <div class="login__img">
-      <div
-        class="login__img--item"
-        [ngClass]="{ show: showImageItem === 1 }"
-        style="background-image: url('../../assets/img/home-phones-item-1.png')"
-      ></div>
-      <div
-        [ngClass]="{ show: showImageItem === 2 }"
-        class="login__img--item"
-        style="background-image: url('../../assets/img/home-phones-item-2.png')"
-      ></div>
-      <div
-        [ngClass]="{ show: showImageItem === 3 }"
-        class="login__img--item"
-        style="background-image: url('../../assets/img/home-phones-item-3.png')"
-      ></div>
-      <div
-        [ngClass]="{ show: showImageItem === 4 }"
-        class="login__img--item"
-        style="background-image: url('../../assets/img/home-phones-item-4.png')"
-      ></div>
+      <div class="login__img--item" [ngClass]="{ show: showImageItem === 1 }"
+        style="background-image: url('../../assets/img/home-phones-item-1.png')"></div>
+      <div [ngClass]="{ show: showImageItem === 2 }" class="login__img--item"
+        style="background-image: url('../../assets/img/home-phones-item-2.png')"></div>
+      <div [ngClass]="{ show: showImageItem === 3 }" class="login__img--item"
+        style="background-image: url('../../assets/img/home-phones-item-3.png')"></div>
+      <div [ngClass]="{ show: showImageItem === 4 }" class="login__img--item"
+        style="background-image: url('../../assets/img/home-phones-item-4.png')"></div>
       <!-- <img nz-image nzSrc="/assets/img/home-phones-item-1.png" alt=""   /> -->
     </div>
 
@@ -32,43 +20,29 @@
           </h2>
 
           <nz-input-group [nzSuffix]="suffixTemplateInfo" nzSize="small">
-            <input
-              type="email"
-              nz-input
-              placeholder="Enter your email"
-              formControlName="email"
-            />
+            <input type="email" nz-input placeholder="Enter your email" formControlName="email" />
           </nz-input-group>
           <span class="error-message">{{ getFormErrorMessage("email") }}</span>
 
           <div class="mb-[6px]"></div>
 
           <nz-input-group [nzSuffix]="suffixTemplate" nzSize="small">
-            <input
-              [type]="passwordVisible ? 'text' : 'password'"
-              nz-input
-              placeholder="Password"
-              [nzSize]="'small'"
-              formControlName="password"
-            />
+            <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="Password" [nzSize]="'small'"
+              formControlName="password" />
           </nz-input-group>
           <span class="error-message">{{ getFormErrorMessage("password") }}</span>
           <div class="mb-[6px]"></div>
 
-          
+
           <nz-input-group [nzSuffix]="suffixTemplate" nzSize="small">
-            <input
-              [type]="confirmPasswordVisible ? 'text' : 'password'"
-              nz-input
-              placeholder="Confirm Password"
-              [nzSize]="'small'"
-              formControlName="confirmPassword"
-            />
+            <input [type]="confirmPasswordVisible ? 'text' : 'password'" nz-input placeholder="Confirm Password"
+              [nzSize]="'small'" formControlName="confirmPassword" />
           </nz-input-group>
           <span class="error-message">{{ getFormErrorMessage("confirmPassword") }}</span>
 
           <div class="mt-[12px]">
-            <button nz-button nzType="primary" class="w-full" nzSize="small" type="submit"  [nzLoading]="isLoading$ | async" [disabled]="form.invalid">
+            <button nz-button nzType="primary" class="w-full" nzSize="small" type="submit"
+              [nzLoading]="signUpMutation.isPending()" [disabled]="form.invalid">
               Sign Up
             </button>
           </div>
@@ -91,10 +65,6 @@
   <nz-icon nz-tooltip nzTooltipTitle="Extra information" nzType="info-circle" />
 </ng-template>
 <ng-template #suffixTemplate>
-  <span
-    nz-icon
-    class="ant-input-password-icon"
-    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-    (click)="passwordVisible = !passwordVisible"
-  ></span>
+  <span nz-icon class="ant-input-password-icon" [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+    (click)="passwordVisible = !passwordVisible"></span>
 </ng-template>

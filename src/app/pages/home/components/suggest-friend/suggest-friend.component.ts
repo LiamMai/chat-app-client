@@ -5,15 +5,25 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FriendService } from '../../../../core/services/friends/friend.service';
-import { Subscription } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { ToastService } from '../../../../core/services/toast.service';
+import { injectMutation, injectQuery } from '@tanstack/angular-query-experimental';
+import { QUERY_KEY } from '../../../../shared/constants';
+import {
+  NzSkeletonModule
+} from 'ng-zorro-antd/skeleton';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 const importModules = [
   NzCardModule,
   NzGridModule,
   NzAvatarModule,
   NzButtonModule,
-  NzIconModule
+  NzIconModule,
+  NzSkeletonModule,
+  NzSpaceModule,
+  NzEmptyModule
 ]
 
 @Component({
@@ -29,31 +39,44 @@ export class SuggestFriendComponent implements OnInit, OnDestroy {
     private toastService: ToastService
   ) { }
 
-  ngOnInit(): void {
-    this.getPotentialFriend();
-  }
+  queryPotentialFriend = injectQuery(() => ({
+    queryKey: [QUERY_KEY.FRIEND.POTENTIAL_FRIEND],
+    queryFn: () => lastValueFrom(this.friendService.getPotentialFriend()),
+    throwOnError: (error) => {
+      this.toastService.createToast({ type: 'error', message: error.message })
+      return false;
+    }
+  }));
+
+  mutationSendFriendRequest = injectMutation(() => ({
+    mutationFn: (body: SendFriendRequestBody) => lastValueFrom(this.friendService.postSendFriendRequest(body))
+  }))
+
+  selectedAddFriendId = ''
+
+  private subscriptions: Subscription[] = []
+
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 
-  potentialFriend: PotentialFriendItemResponse[] = [];
-  private subscriptions: Subscription[] = []
+  async handleSendFriendRequest(receiver: PotentialFriendItemResponse) {
+    this.selectedAddFriendId = receiver.userId
+    const body: SendFriendRequestBody = {
+      receiverId: receiver.userId
+    }
 
-  getPotentialFriend() {
-    const sub = this.friendService.getPotentialFriend().subscribe({
-      next: (res) => {
-        this.potentialFriend = res;
-      },
-      error: (error) => {
-        this.toastService.createToast({ type: 'error', message: error.message })
+    try {
+      await this.mutationSendFriendRequest.mutateAsync(body);
+      this.toastService.createToast({ type: 'success', message: 'Send Friend Request Succesfully!' });
+      this.queryPotentialFriend.refetch();
+    } catch (error: any) {
+      this.toastService.createToast({ type: 'error', message: error.message })
 
-      }
-    })
-
-    this.subscriptions.push(sub)
+    }
   }
-
 
 
 }

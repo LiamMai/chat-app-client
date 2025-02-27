@@ -20,8 +20,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptorS } from './core/interceptors/auth.interceptor';
 import { BaseInterceptor } from './core/interceptors/base.interceptor';
 import { provideAntIcons } from '@ant-design/icons-angular';
+import {
+  provideTanStackQuery,
+  QueryClient,
+} from '@tanstack/angular-query-experimental'
 
 registerLocaleData(en);
+const queryClient = new QueryClient(
+  {
+    defaultOptions: {
+      queries: {
+        staleTime: 5 * 1000 * 1000, // Default refresh time (5 mintues)
+        refetchOnWindowFocus: true,
+      },
+    },
+
+  }
+);
 
 
 export const appConfig: ApplicationConfig = {
@@ -36,5 +51,6 @@ export const appConfig: ApplicationConfig = {
     provideAntIcons([]),
     { provide: HTTP_INTERCEPTORS, useClass: BaseInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorS, multi: true },
+    provideTanStackQuery(queryClient)
   ],
 };

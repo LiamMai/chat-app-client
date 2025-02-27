@@ -70,3 +70,16 @@ h6 {
   color: red;
 }
 
+.ant-skeleton-button.ant-skeleton-button-sm {
+  height: 16px;
+  width: 100%;
+}
+
+.default-header {
+  background: var(--secondary-black);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}

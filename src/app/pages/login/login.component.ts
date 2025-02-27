@@ -1,20 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzImageModule } from 'ng-zorro-antd/image';
-import { interval, Subscription } from 'rxjs';
+import { interval, lastValueFrom, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { Form, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { loginByEmail, validationMessages } from './login.model';
-import { HelperService } from '../../core/services/helper.service';
 import { AuthService } from '../../core/services/auth/auth.service';
-import { ApiStatusService } from '../../core/services/api-status.service';
 import { ToastService } from '../../core/services/toast.service';
 import { FormService } from '../../core/services/form.service';
 import { Route, Router } from '@angular/router';
-import ROUTES from '../../constants/routes';
+import ROUTES from '../../shared/constants/routes';
+import { injectMutation } from '@tanstack/angular-query-experimental';
 
 const importsModule = [
   CommonModule,
@@ -40,13 +39,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private formService: FormService,
     private authService: AuthService,
-    private apiStatus: ApiStatusService,
     private toastService: ToastService,
-    private router: Router
-  ) {}
-  
-  isLoading$ = this.apiStatus.isLoading$;
+    private router: Router,
+  ) { }
 
+  signInMutation = injectMutation(() => ({
+    mutationFn: (body: BodySignInAndSignUp) => lastValueFrom(this.authService.signIn(body))
+  }))
   showImageItem: number = 1;
   passwordVisible = false;
   password: string = "";
@@ -78,25 +77,23 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.formService.getFormErrorMessage({ form: this.form, controlName, validationMessages: validationMessages })
   }
 
-  onSubmit() {
+  async onSubmit() {
     const email = this.form.get("email")?.value;
     const password = this.form.get("password")?.value;
-    
+
     const body: BodySignInAndSignUp = {
-      email, 
+      email,
       password
     }
 
-    const sub = this.authService.signIn(body).subscribe({
-      next: res => {
-        this.router.navigateByUrl(ROUTES.HOME.MESSAGE)
-      },
-      error: error => {
-        this.toastService.createToast({ type: 'error', message: error.message })
-      }
-    })
+    try {
+      await this.signInMutation.mutateAsync(body);
+      this.router.navigateByUrl(`${ROUTES.HOME.INDEX}/${ROUTES.HOME.MESSAGE}`)
 
-    this.subscriptions.push(sub);
+    } catch (error: any) {
+      this.toastService.createToast({ type: 'error', message: error.message })
+    }
+
 
   }
 
