@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
@@ -6,7 +6,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FriendService } from '../../../../core/services/friends/friend.service';
 import { lastValueFrom, Subscription } from 'rxjs';
-import { ToastService } from '../../../../core/services/toast.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
 import { injectMutation, injectQuery } from '@tanstack/angular-query-experimental';
 import { QUERY_KEY } from '../../../../shared/constants';
 import {
@@ -14,6 +14,7 @@ import {
 } from 'ng-zorro-antd/skeleton';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { UserCardComponent } from "../../../../shared/components/user-card/user-card.component";
 
 const importModules = [
   NzCardModule,
@@ -23,14 +24,19 @@ const importModules = [
   NzIconModule,
   NzSkeletonModule,
   NzSpaceModule,
-  NzEmptyModule
+  NzEmptyModule,
+  UserCardComponent
+]
+const providers = [
+  UserCardComponent
 ]
 
 @Component({
   selector: 'app-suggest-friend',
   imports: importModules,
   templateUrl: './suggest-friend.component.html',
-  styleUrl: './suggest-friend.component.scss'
+  styleUrl: './suggest-friend.component.scss',
+  providers: providers
 })
 export class SuggestFriendComponent implements OnInit, OnDestroy {
 
@@ -41,7 +47,7 @@ export class SuggestFriendComponent implements OnInit, OnDestroy {
 
   queryPotentialFriend = injectQuery(() => ({
     queryKey: [QUERY_KEY.FRIEND.POTENTIAL_FRIEND],
-    queryFn: () => lastValueFrom(this.friendService.getPotentialFriend()),
+    queryFn: async () => await lastValueFrom(this.friendService.getPotentialFriend()),
     throwOnError: (error) => {
       this.toastService.createToast({ type: 'error', message: error.message })
       return false;
@@ -52,7 +58,6 @@ export class SuggestFriendComponent implements OnInit, OnDestroy {
     mutationFn: (body: SendFriendRequestBody) => lastValueFrom(this.friendService.postSendFriendRequest(body))
   }))
 
-  selectedAddFriendId = ''
 
   private subscriptions: Subscription[] = []
 
@@ -63,7 +68,6 @@ export class SuggestFriendComponent implements OnInit, OnDestroy {
   }
 
   async handleSendFriendRequest(receiver: PotentialFriendItemResponse) {
-    this.selectedAddFriendId = receiver.userId
     const body: SendFriendRequestBody = {
       receiverId: receiver.userId
     }

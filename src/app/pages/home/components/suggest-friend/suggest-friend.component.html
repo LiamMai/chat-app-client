@@ -5,52 +5,9 @@
         <p class="ml-[8px]">Suggest Friend</p>
     </div>
 
-    @if (!queryPotentialFriend.isLoading()) {
-    @if(queryPotentialFriend.data()?.length === 0) {
-    <nz-empty></nz-empty>
-    } @else {
-    <div nz-row [nzGutter]="[16, 16]">
-        @for (item of queryPotentialFriend.data(); track $index) {
-        <div nz-col [nzSpan]="4">
-            <div class="suggest-friend__item flex flex-col items-center ">
-                <nz-avatar nzSize="large" nzIcon="user" [nzSrc]="item.avatar ? item.avatar : ''"
-                    class="mb-[8px]"></nz-avatar>
-                <p class="truncate w-full">{{ item.email }}</p>
-                <button nz-button nzType="primary" nzSize="small" class="mt-[8px]"
-                    (click)="handleSendFriendRequest(item)"
-                    [nzLoading]="selectedAddFriendId === item.userId && mutationSendFriendRequest.isPending()">Add
-                    Friend</button>
-            </div>
-        </div>
-        }
-    </div>
-    }
-
-    } @else {
-    <div nz-row [nzGutter]="[16, 16]">
-        @for (item of [].constructor(6); track $index) {
-        <div nz-col [nzSpan]="4">
-            <div class="suggest-friend__item flex flex-col items-center ">
-                <nz-space nzSize="middle">
-                    <nz-skeleton-element *nzSpaceItem nzType="button" [nzActive]="true" nzSize="large"
-                        nzShape="circle"></nz-skeleton-element>
-                </nz-space>
-
-                <nz-space nzSize="middle">
-                    <nz-skeleton-element *nzSpaceItem nzType="button" [nzActive]="true" nzSize="small"
-                        class="h-[10px] mt-[4px]" nzShape="default"></nz-skeleton-element>
-                </nz-space>
-
-                <nz-space nzSize="middle" class="mt-[8px]">
-                    <nz-skeleton-element *nzSpaceItem nzType="button" [nzActive]="true" nzSize="small" class="h-[10px]"
-                        nzShape="default"></nz-skeleton-element>
-                </nz-space>
-
-            </div>
-        </div>
-        }
-    </div>
-    }
+    <app-user-card [isLoading]="queryPotentialFriend.isLoading()"
+        [btn]="{ isLoading: mutationSendFriendRequest.isPending(), text: 'Add Friend' }"
+        [data]="queryPotentialFriend.data()" (onSendFriendRequest)="handleSendFriendRequest($event)" />
 
 
 </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import API_URL from '../../../shared/constants/apiUrl';
 
 @Injectable({
@@ -25,6 +25,17 @@ export class FriendService {
 
   postSendFriendRequest(body: SendFriendRequestBody) {
     return this.http.post(API_URL.FRIEND.POST_SEND_REQUEST, body).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((error: ApiError) => {
+        throw error;
+      })
+    )
+  }
+
+  geSendFriendRequest(params?: HttpParams): Observable<SendFriendRequestResponse> {
+    return this.http.get<SendFriendRequestResponse>(API_URL.FRIEND.GET_SEND_FRIEND_REQUEST, { params }).pipe(
       map((res) => {
         return res;
       }),

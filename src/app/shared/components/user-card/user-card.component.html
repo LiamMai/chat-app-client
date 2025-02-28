@@ -1,1 +1,59 @@
-<p>user-card works!</p>
+@if (!isLoading) {
+@if(data?.length === 0) {
+<nz-empty></nz-empty>
+} @else {
+<div nz-row [nzGutter]="[16, 16]">
+    @for (item of data; track $index) {
+    <div nz-col [nzSpan]="4">
+        @if(type === 'view') {
+        <nz-ribbon [nzText]="handleFormatFriendRequestStatus(item)">
+            <ng-container *ngTemplateOutlet="userItem; context: { user: item  }" />
+        </nz-ribbon>
+        } @else if (type === 'suggest-friend') {
+        <ng-container *ngTemplateOutlet="userItem; context: { user: item }" />
+        }
+
+
+    </div>
+    }
+</div>
+}
+
+} @else {
+<div nz-row [nzGutter]="[16, 16]">
+    @for (item of [].constructor(6); track $index) {
+    <div nz-col [nzSpan]="4">
+        <div class="user-card__item flex flex-col items-center ">
+            <nz-space nzSize="middle">
+                <nz-skeleton-element *nzSpaceItem nzType="button" [nzActive]="true" nzSize="large"
+                    nzShape="circle"></nz-skeleton-element>
+            </nz-space>
+
+            <nz-space nzSize="middle">
+                <nz-skeleton-element *nzSpaceItem nzType="button" [nzActive]="true" nzSize="small"
+                    class="h-[10px] mt-[4px]" nzShape="default"></nz-skeleton-element>
+            </nz-space>
+
+            <nz-space nzSize="middle" class="mt-[8px]">
+                <nz-skeleton-element *nzSpaceItem nzType="button" [nzActive]="true" nzSize="small" class="h-[10px]"
+                    nzShape="default"></nz-skeleton-element>
+            </nz-space>
+
+        </div>
+    </div>
+    }
+</div>
+}
+
+<ng-template #userItem let-user="user">
+    <div class="user-card__item flex flex-col items-center ">
+        <nz-avatar nzSize="large" nzIcon="user" [nzSrc]="user.avatar ? user.avatar : ''" class="mb-[8px]"></nz-avatar>
+        <p class="truncate w-full">{{ user.email }}</p>
+        @if(type === 'suggest-friend') {
+        <button nz-button nzType="primary" nzSize="small" class="mt-[8px]" (click)="handleSendFriendRequest(user)"
+            [nzLoading]="btn.isLoading && selectedAddFriendId === user.userId">
+            {{btn.text}}</button>
+        }
+
+    </div>
+</ng-template>

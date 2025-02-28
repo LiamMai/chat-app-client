@@ -12,5 +12,5 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'Chat App Client By Liam Mai';
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

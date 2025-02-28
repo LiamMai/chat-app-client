@@ -6,15 +6,15 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { HelperService } from '../../core/services/helper.service';
+import { HelperService } from '../../core/services/helper/helper.service';
 import { AuthService } from '../../core/services/auth/auth.service';
-import { ToastService } from '../../core/services/toast.service';
+import { ToastService } from '../../core/services/toast/toast.service';
 import { interval, lastValueFrom, Subscription } from 'rxjs';
 import { signUpForm, validationMessages } from './sign-up.model';
-import { FormService } from '../../core/services/form.service';
 import { Router } from '@angular/router';
 import ROUTES from '../../shared/constants/routes';
 import { injectMutation } from '@tanstack/angular-query-experimental';
+import { FormService } from '../../core/services/form/form.service';
 
 const importsModule = [
   CommonModule,

@@ -9,11 +9,11 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { loginByEmail, validationMessages } from './login.model';
 import { AuthService } from '../../core/services/auth/auth.service';
-import { ToastService } from '../../core/services/toast.service';
-import { FormService } from '../../core/services/form.service';
+import { ToastService } from '../../core/services/toast/toast.service';
 import { Route, Router } from '@angular/router';
 import ROUTES from '../../shared/constants/routes';
 import { injectMutation } from '@tanstack/angular-query-experimental';
+import { FormService } from '../../core/services/form/form.service';
 
 const importsModule = [
   CommonModule,

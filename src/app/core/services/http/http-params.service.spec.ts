@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HelperService } from './helper.service';
+import { HttpParamsService } from './http-params.service';
 
-describe('HelperService', () => {
-  let service: HelperService;
+describe('HttpParamsService', () => {
+  let service: HttpParamsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HelperService);
+    service = TestBed.inject(HttpParamsService);
   });
 
   it('should be created', () => {

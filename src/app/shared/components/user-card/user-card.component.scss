@@ -1,0 +1,22 @@
+* {
+    color: var(--primary-text);
+}
+
+.user-card {
+
+    &__header {
+        background: var(--secondary-black);
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        border-radius: 8px;
+    }
+
+    &__item {
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px dashed var(--primary-border-color);
+        display: flex;
+    }
+}

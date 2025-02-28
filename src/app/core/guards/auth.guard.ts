@@ -24,7 +24,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   private checkAuth(): boolean {
     const accessToken = localStorage.getItem(LOCAL_STORE_KEY.ACCESS_TOKEN)
-    console.log("🚀 ~ AuthGuard ~ checkAuth ~ accessToken:", accessToken)
 
     if (!accessToken) {
       this.router.navigateByUrl(ROUTES.LOGIN);

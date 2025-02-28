@@ -5,6 +5,7 @@ export const LOCAL_STORE_KEY = {
 
 export const QUERY_KEY = {
     FRIEND: {
-        POTENTIAL_FRIEND: 'potential_friend'
+        POTENTIAL_FRIEND: 'potential_friend',
+        SEND_FRIEND_REQUEST: 'send_friend_request'
     }
 }

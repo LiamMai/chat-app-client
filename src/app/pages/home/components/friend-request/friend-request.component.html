@@ -1,6 +1,9 @@
-<div class="friend-request  default-header">
-    <div class="friend-request__header w-full h-full flex items-center">
+<div class="friend-request">
+    <div class=" default-header w-full h-full flex items-center">
         <nz-icon nzType="user-add" nzTheme="outline" />
         <p class="ml-[8px]">Your send friend request</p>
     </div>
+
+    <app-user-card [isLoading]="querySendFriendRequest.isLoading()" type="view"
+        [data]="convertUserFromFriendRequest(querySendFriendRequest.data()?.friendRequests)" />
 </div>

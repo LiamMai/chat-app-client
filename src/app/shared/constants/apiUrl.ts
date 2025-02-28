@@ -5,7 +5,8 @@ const API_URL = {
     },
     FRIEND: {
         GET_POTENTIAL: '/friend/potential/get',
-        POST_SEND_REQUEST: '/friend-request/send'
+        POST_SEND_REQUEST: '/friend-request/send',
+        GET_SEND_FRIEND_REQUEST: '/friend-request/get-all/send'
     }
 }
 
