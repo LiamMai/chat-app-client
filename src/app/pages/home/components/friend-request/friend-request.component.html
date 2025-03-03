@@ -4,6 +4,16 @@
         <p class="ml-[8px]">Your send friend request</p>
     </div>
 
-    <app-user-card [isLoading]="querySendFriendRequest.isLoading()" type="view"
+    <app-user-card [isLoading]="querySendFriendRequest.isLoading()" type="send-friend-request"
         [data]="convertUserFromFriendRequest(querySendFriendRequest.data()?.friendRequests)" />
+
+    <div class=" default-header w-full h-full flex items-center mt-[16px]">
+        <nz-icon nzType="user-add" nzTheme="outline" />
+        <p class="ml-[8px]">Your receive friend request</p>
+    </div>
+
+    <app-user-card [isLoading]="queryReceiveFriendRequest.isLoading()" type="receive-friend-request"
+        [data]="convertUserFromFriendRequest(queryReceiveFriendRequest.data()?.friendRequests)"
+        [friendRequest]="{ isDeniedRequestLoading: mutationDenyFriendRequest.isPending(), isAcceptRequestLoading: mutationAcceptFriendRequest.isPending()}"
+        (onSelectFriendRequest)="handleActionFriendRequest($event)" />
 </div>

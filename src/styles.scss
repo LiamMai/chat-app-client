@@ -83,3 +83,11 @@ h6 {
   margin-bottom: 16px;
   border-radius: 8px;
 }
+
+.ant-btn {
+  margin-top: 8px;
+}
+
+.ant-btn + .ant-btn {
+  margin-left: 8px;
+}

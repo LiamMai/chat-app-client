@@ -45,5 +45,37 @@ export class FriendService {
     )
   }
 
+  getReceiveFriendRequest(params?: HttpParams): Observable<SendFriendRequestResponse> {
+    return this.http.get<SendFriendRequestResponse>(API_URL.FRIEND.GET_RECEIVE_FRIEND_REQUEST, { params }).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((error: ApiError) => {
+        throw error;
+      })
+    )
+  }
 
+  patchAcceptFriendRequest(body: ActionFriendRequest) {
+    return this.http.patch(API_URL.FRIEND.PATCH_FRIEND_REQUEST_ACCEPT, body).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((error: ApiError) => {
+        throw error;
+      })
+    )
+  }
+
+
+  patchDenyFriendRequest(body: ActionFriendRequest) {
+    return this.http.patch(API_URL.FRIEND.PATCH_FRIEND_REQUEST_DENY, body).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((error: ApiError) => {
+        throw error;
+      })
+    )
+  }
 }

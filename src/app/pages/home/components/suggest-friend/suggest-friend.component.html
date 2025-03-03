@@ -5,9 +5,9 @@
         <p class="ml-[8px]">Suggest Friend</p>
     </div>
 
-    <app-user-card [isLoading]="queryPotentialFriend.isLoading()"
-        [btn]="{ isLoading: mutationSendFriendRequest.isPending(), text: 'Add Friend' }"
-        [data]="queryPotentialFriend.data()" (onSendFriendRequest)="handleSendFriendRequest($event)" />
+    <app-user-card [isLoading]="queryPotentialFriend.isLoading()" type="suggest-friend-request"
+        [suggestFriend]="{ isSendRequestLoading: mutationSendFriendRequest.isPending() }"
+        [data]="queryPotentialFriend.data()" (onSelectFriendRequest)="handleSendFriendRequest($event)" />
 
 
 </div>

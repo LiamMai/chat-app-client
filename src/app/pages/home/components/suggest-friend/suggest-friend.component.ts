@@ -67,7 +67,8 @@ export class SuggestFriendComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 
-  async handleSendFriendRequest(receiver: PotentialFriendItemResponse) {
+  async handleSendFriendRequest(event: EmitEventSelectType) {
+    const { user: receiver } = event
     const body: SendFriendRequestBody = {
       receiverId: receiver.userId
     }
@@ -78,7 +79,6 @@ export class SuggestFriendComponent implements OnInit, OnDestroy {
       this.queryPotentialFriend.refetch();
     } catch (error: any) {
       this.toastService.createToast({ type: 'error', message: error.message })
-
     }
   }
 

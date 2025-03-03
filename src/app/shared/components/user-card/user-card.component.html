@@ -5,11 +5,11 @@
 <div nz-row [nzGutter]="[16, 16]">
     @for (item of data; track $index) {
     <div nz-col [nzSpan]="4">
-        @if(type === 'view') {
+        @if(type === 'send-friend-request') {
         <nz-ribbon [nzText]="handleFormatFriendRequestStatus(item)">
             <ng-container *ngTemplateOutlet="userItem; context: { user: item  }" />
         </nz-ribbon>
-        } @else if (type === 'suggest-friend') {
+        } @else {
         <ng-container *ngTemplateOutlet="userItem; context: { user: item }" />
         }
 
@@ -49,10 +49,23 @@
     <div class="user-card__item flex flex-col items-center ">
         <nz-avatar nzSize="large" nzIcon="user" [nzSrc]="user.avatar ? user.avatar : ''" class="mb-[8px]"></nz-avatar>
         <p class="truncate w-full">{{ user.email }}</p>
-        @if(type === 'suggest-friend') {
-        <button nz-button nzType="primary" nzSize="small" class="mt-[8px]" (click)="handleSendFriendRequest(user)"
-            [nzLoading]="btn.isLoading && selectedAddFriendId === user.userId">
-            {{btn.text}}</button>
+        @if(type === 'suggest-friend-request') {
+        <button nz-button nzType="primary" nzSize="small" class="mt-[8px]"
+            (click)="handleSelectFriendRequest(user, 'add')"
+            [nzLoading]="suggestFriend.isSendRequestLoading && selectedFriendRequest === user.userId">Add
+            Friend</button>
+        } @else if (type === 'receive-friend-request') {
+        <div class="flex items-center justify-center w-full">
+            <button nz-button nzType="primary" nzSize="small" class=""
+                (click)="handleSelectFriendRequest(user, 'denied')"
+                [nzLoading]="friendRequest.isDeniedRequestLoading && selectedFriendRequest === user.userId">Denied</button>
+
+            <button nz-button nzType="primary" nzSize="small" class=""
+                (click)="handleSelectFriendRequest(user, 'accept')"
+                [nzLoading]="friendRequest.isAcceptRequestLoading && selectedFriendRequest === user.userId">Accept</button>
+
+        </div>
+
         }
 
     </div>

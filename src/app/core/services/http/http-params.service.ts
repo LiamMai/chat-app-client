@@ -13,8 +13,7 @@ export class HttpParamsService implements IHttpParamsBuilder {
   params = new HttpParams();
 
   constructor(
-  ) {
-  }
+  ) { }
 
   append(param: string, value: any): this {
     if (value) {

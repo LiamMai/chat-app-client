@@ -3,6 +3,10 @@ interface SendFriendRequestBody {
   receiverId: string
 }
 
+interface ActionFriendRequest {
+  friendRequestId: string
+}
+
 
 // Response
 interface PotentialFriendItemResponse extends UserResponse { }

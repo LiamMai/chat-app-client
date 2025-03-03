@@ -11,9 +11,6 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { STATUS_FRIEND_REQUEST } from '../../constants/enum';
 
-interface UserData extends UserResponse {
-  status?: STATUS_FRIEND_REQUEST
-}
 
 const importModules = [
   CommonModule,
@@ -38,28 +35,30 @@ const importModules = [
 export class UserCardComponent {
   constructor() { }
 
-  @Input({ required: true }) data: UserData[] | undefined = [];
+  @Input({ required: true }) data: UserDataUserCard[] | undefined = [];
   @Input({ required: true }) isLoading: boolean = false;
-  @Input() type: 'suggest-friend' | 'view' = 'suggest-friend'
-  @Input() btn: { isLoading: boolean, text: string } = { isLoading: false, text: '' }
+  @Input({ required: true }) type!: TypeUserCardComponent
 
-  @Output() onSendFriendRequest: EventEmitter<UserResponse> = new EventEmitter();
+  @Input() suggestFriend: { isSendRequestLoading: boolean } = { isSendRequestLoading: false }
+  @Input() friendRequest: { isDeniedRequestLoading: boolean, isAcceptRequestLoading: boolean } = { isAcceptRequestLoading: false, isDeniedRequestLoading: false }
 
 
-  selectedAddFriendId = '';
+  @Output() onSelectFriendRequest: EventEmitter<EmitEventSelectType> = new EventEmitter();
+
+
+  selectedFriendRequest = '';
 
   ngOnInit() {
-
   }
 
-  handleSendFriendRequest(user: UserResponse) {
-    this.selectedAddFriendId = user.userId
+  handleSelectFriendRequest(user: UserResponse, type: SelectFriendRequest) {
+    this.selectedFriendRequest = user.userId
 
-    this.onSendFriendRequest.emit(user)
+    this.onSelectFriendRequest.emit({ user, type })
   }
 
-  handleFormatFriendRequestStatus(user: UserData) {
-    const status = user.status;
+  handleFormatFriendRequestStatus(user: UserDataUserCard) {
+    const status: STATUS_FRIEND_REQUEST | undefined = user.status;
 
     if (!status)
       return ''
