@@ -24,6 +24,7 @@ import {
   provideTanStackQuery,
   QueryClient,
 } from '@tanstack/angular-query-experimental'
+import { ScrollingModule } from "@angular/cdk/scrolling";
 
 registerLocaleData(en);
 const queryClient = new QueryClient(
@@ -45,12 +46,12 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideNzI18n(en_US),
-    importProvidersFrom([ReactiveFormsModule, FormsModule]),
+    importProvidersFrom([ReactiveFormsModule, FormsModule, ScrollingModule]),
     provideAnimationsAsync(),
     provideHttpClient(withFetch(), withInterceptors([]), withInterceptorsFromDi()),
     provideAntIcons([]),
     { provide: HTTP_INTERCEPTORS, useClass: BaseInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorS, multi: true },
-    provideTanStackQuery(queryClient)
+    provideTanStackQuery(queryClient),
   ],
 };

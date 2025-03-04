@@ -91,3 +91,8 @@ h6 {
 .ant-btn + .ant-btn {
   margin-left: 8px;
 }
+
+::-webkit-scrollbar {
+  width: 6px; 
+  height: 6px;
+}

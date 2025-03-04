@@ -1,0 +1,12 @@
+.wrapper {
+  margin: -30px;
+  height: 100vh;
+  max-height: 100vh;
+
+  .ant-menu {
+    overflow: auto;
+    .ant-menu-item {
+      margin-top: 0px;
+    }
+  }
+}

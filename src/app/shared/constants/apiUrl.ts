@@ -10,6 +10,9 @@ const API_URL = {
         GET_RECEIVE_FRIEND_REQUEST: '/friend-request/get-all/receive',
         PATCH_FRIEND_REQUEST_ACCEPT: '/friend-request/accept',
         PATCH_FRIEND_REQUEST_DENY: '/friend-request/deny',
+    },
+    CONVERSATION: {
+        GET: '/conversation/get-all'
     }
 }
 

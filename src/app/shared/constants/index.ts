@@ -8,5 +8,8 @@ export const QUERY_KEY = {
         POTENTIAL_FRIEND: 'potential_friend',
         SEND_FRIEND_REQUEST: 'send_friend_request',
         RECEIVER_FRIEND_REQUEST: 'receiver_friend_request'
+    },
+    CONVERSATION: {
+        GET: 'get_conversation',
     }
 }

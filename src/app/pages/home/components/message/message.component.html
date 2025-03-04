@@ -1,1 +1,29 @@
-<p>message works!</p>
+<!-- <div class="wrapper">
+    <ul nz-menu nzMode="inline" nzTheme="dark" class="max-w-[200px] h-full">
+        <ng-container *ngIf="infinite | async; let items">
+            <cdk-virtual-scroll-viewport [itemSize]="itemSize" class="viewport h-full max-h-full" #scroller
+                [minBufferPx]="itemSize" [maxBufferPx]="itemSize">
+                <li nz-menu-item *cdkVirtualFor="let item of items">{{item}}</li>
+
+            </cdk-virtual-scroll-viewport>
+        </ng-container>
+
+
+
+    </ul>
+
+
+
+</div> -->
+
+<h1>{{ name }}</h1>
+
+<ng-container *ngIf="infinite | async; let items">
+
+    <cdk-virtual-scroll-viewport class="example-viewport" [itemSize]="itemSize">
+        <div *cdkVirtualFor="let item of items; trackBy: trackByIdx" class="example-item">
+            <b>{{item}}</b>
+        </div>
+    </cdk-virtual-scroll-viewport>
+
+</ng-container>
