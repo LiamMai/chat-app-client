@@ -1,6 +1,7 @@
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
@@ -8,7 +9,6 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { STATUS_FRIEND_REQUEST } from '../../constants/enum';
 
 
@@ -28,6 +28,7 @@ const importModules = [
 
 @Component({
   selector: 'app-user-card',
+  standalone: true,
   imports: importModules,
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.scss',

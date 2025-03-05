@@ -48,7 +48,7 @@
 <ng-template #userItem let-user="user">
     <div class="user-card__item flex flex-col items-center ">
         <nz-avatar nzSize="large" nzIcon="user" [nzSrc]="user.avatar ? user.avatar : ''" class="mb-[8px]"></nz-avatar>
-        <p class="truncate w-full">{{ user.email }}</p>
+        <p class="truncate w-full text-center">{{ user.email }}</p>
         @if(type === 'suggest-friend-request') {
         <button nz-button nzType="primary" nzSize="small" class="mt-[8px]"
             (click)="handleSelectFriendRequest(user, 'add')"

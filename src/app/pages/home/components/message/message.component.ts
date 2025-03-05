@@ -1,8 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, NgZone, ViewChild } from '@angular/core';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
-import { auditTime, BehaviorSubject, filter, map, pairwise, tap, throttleTime } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { Component, NgZone, ViewChild } from '@angular/core';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { filter, map, pairwise, throttleTime } from 'rxjs';
 
 const importModules = [
   CommonModule,
@@ -12,6 +12,7 @@ const importModules = [
 
 @Component({
   selector: 'app-message',
+  standalone: true,
   imports: importModules,
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss',
@@ -20,95 +21,28 @@ export class MessageComponent {
   constructor(
     private ngZone: NgZone
   ) { }
-
+  fetchedRanges = new Set<number>();
   name = 'CDK Virtual Scroll Infinite Loop';
 
-  arr = Array.from({ length: 10 }).map((_, i) => `${i}`);
-  infinite = new BehaviorSubject<any[]>([]);
-  itemSize = 50;
+  arr = Array.from({ length: 50 }).map((_, i) => `${i}`);
 
-  @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport;
+  @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport
 
-  ngAfterViewInit() {
-    this.viewPort.scrolledIndexChange.pipe(
-      auditTime(300),
-      tap((currIndex: number) => {
-        console.log('scrolledIndexChange:', currIndex);
-        this.nextBatch(currIndex, this.infinite.value);
-      })
-    ).subscribe();
 
-    setTimeout(() => this.infinite.next(this.arr), 300);
-  }
+  ngAfterViewInit(): void {
 
-  getNextIndex(index: number) {
-    return (index >= this.arr.length) ? index % this.arr.length : index;
-  }
-
-  getPrevIndex(index: number, total: number) {
-    return (index < 0) ? index % total : index - 1;
-  }
-
-  getNextBatch(items: any[], currIndex: number, range: number) {
-    const nextIndex = this.getNextIndex(currIndex + range);
-    let chunk;
-    console.log(`${currIndex} >= ${nextIndex}`);
-    if (currIndex >= this.arr.length) {
-      const lastRange = currIndex + range - this.arr.length;
-
-      console.log(`lastRange = ${lastRange}`);
-      const last = this.arr.slice(nextIndex, lastRange);
-
-      const first = this.arr.slice(0, lastRange);
-      console.log(`last = slice(${nextIndex}) = ${last}`);
-      console.log(`first = slice(0, ${lastRange}) = ${first}`);
-      chunk = [...first, ...last];
-    } else {
-      chunk = this.arr.slice(nextIndex, nextIndex + range);
-      console.log(`normal slice(${nextIndex}, ${nextIndex + range}) = ${chunk}`);
+    this.viewPort.elementScrolled().pipe(
+      map(() => this.viewPort.measureScrollOffset('bottom')),
+      pairwise(),
+      filter(([y1, y2]) => (y2 < y1 && y2 < 140)),
+      throttleTime(200)
+    ).subscribe(() => {
+      this.ngZone.run(() => {
+        console.log("Fire")
+      });
     }
-    return [...items, ...chunk];
+    );
   }
-
-  getPrevBatch(items: any[], currIndex: number, range: number) {
-    const prevIndex = this.getPrevIndex(currIndex - range, items.length);
-    const chunk = items.slice(prevIndex, range);
-    console.log(`ranger: ${range}, prevIndex: ${prevIndex}, chunk: ${chunk}`);
-    return [...chunk, ...items];
-  }
-
-  nextBatch(currIndex: number, items: any[]) {
-    const start = this.viewPort.getRenderedRange().start;
-    const end = this.viewPort.getRenderedRange().end;
-    const total = this.viewPort.getDataLength();
-
-    const buffer = Math.floor(this.viewPort.getViewportSize() / this.itemSize);
-    // * 2;
-    // console.log(`${total} <= ${end + buffer}`);
-    if (total <= currIndex + buffer) {
-      const state = this.getNextBatch(items, currIndex, buffer);
-      // console.log('[Next]', state);
-      this.infinite.next(state);
-    }
-
-    // const offset = this.viewPort.measureRenderedContentSize() - this.viewPort.measureScrollOffset();
-    // const viewHeight = this.viewPort.getViewportSize() + this.viewPort.getViewportSize() / 2;
-
-
-    // console.log(`currIndex: ${currIndex}, start: ${start}, end: ${end}, total: ${total}`);
-    // if (start === 0) {
-    //   const state = this.getPrevBatch(items, currIndex, renderedRange);
-    //   console.log('[Prev]', state);
-    //   this.infinite.next(state);
-    // }
-
-    // if (offset - viewHeight < 0) {
-  }
-
-  trackByIdx(i: number) {
-    return i;
-  }
-
 
 
 }

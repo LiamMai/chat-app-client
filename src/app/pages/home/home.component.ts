@@ -14,6 +14,7 @@ const importModule = [
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: importModule,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

@@ -2,12 +2,11 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor
 import { Injectable } from "@angular/core";
 import { catchError, Observable } from "rxjs";
 import { environment } from "../../../environments/environment.development";
-import { LOCAL_STORE_KEY } from "../../shared/constants";
 
 @Injectable()
 export class BaseInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, handler: HttpHandler): Observable<HttpEvent<any>> {
-    let headers = new HttpHeaders()
+  intercept(req: HttpRequest<unknown>, handler: HttpHandler): Observable<HttpEvent<unknown>> {
+    const headers = new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Access-Control-Allow-Origin', '*')
 
